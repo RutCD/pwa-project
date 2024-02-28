@@ -13,9 +13,16 @@
 </mat-toolbar>
 <!-- contenedor y sidebar -->
 <mat-drawer-container class="example-container">
-    <mat-drawer mode="side" [opened]="opened" class="w-60 px-2 pt-16">
+    <mat-drawer mode="side" [opened]="opened" class="w-70 px-2 pt-16">
         <!-- Menu de opciones -->
-        Drawer content
+      <mat-list>
+        @for (link of links;  track link) {
+          <mat-list-item [routerLink]="link.routerLink">
+            <mat-icon matListItemIcon>{{link.icon}}</mat-icon>
+            <h3 matListItemTitle>{{link.label}}</h3>
+          </mat-list-item>
+        }
+      </mat-list>
     </mat-drawer>
     <mat-drawer-content class="p-10">
         <!-- Rutas -->
