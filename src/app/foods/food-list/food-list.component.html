@@ -1,10 +1,7 @@
-
-@for(item of data; track item.name){
-    <div class="w-96 h-72 p-4">
-        <li>{{item.name}}</li>
-        <img src="{{item.image}}" alt="" srcset="">
-        <p>{{item.price}}</p>
-    </div>
-} @empty {
-    <li> There are not items</li>
-}
+<div class="flex flex-wrap gap-4">
+    @for(item of data; track item.name){ 
+        <app-food [food]="item"></app-food>
+    } @empty {
+        <li> There are not items</li>
+    }
+</div>
