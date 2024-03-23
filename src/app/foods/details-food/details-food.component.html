@@ -1,0 +1,11 @@
+<h1>Details food</h1>
+<mat-card class="w-96">
+    <img mat-card-image src="{{food.image}}" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+        <mat-card-title class="!pt-4 text-lg !font-bold">{{food.name | titlecase}}</mat-card-title>
+        <mat-card-subtitle>{{food.price | currency:'MXN'}} | {{food.category | titlecase}}</mat-card-subtitle>
+        <p>
+       {{food.description}}
+      </p>
+    </mat-card-content>
+</mat-card>
