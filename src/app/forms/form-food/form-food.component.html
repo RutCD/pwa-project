@@ -1,13 +1,93 @@
-<div class="flex flex-col gap-4">
-    <mat-form-field appearance="outline">
-        <mat-label for="name">Nombre de la comida</mat-label>
-        <input matInput placeholder="Ejem. Pizza" id="name" type="text" [formControl]="name">
-        @if (name.invalid){
-            <mat-error>{{showValue()}}</mat-error>
-        }
-    </mat-form-field>
-    <div class="flex gap-4">
-        <button mat-flat-button color="primary" (click)="showValue()">Mostrar valor</button>
-        <button mat-flat-button color="primary" (click)="changeValue()">Cambiar valor</button>
+<div class="max-w-5xl flex flex-col lg:flex-row gap-4 items-center">
+    <form [formGroup]="form" class="w-full lg:w-1/2 p-4">
+    
+    <h1 class="text-lg font-bold text-slate-800 pb-4">{{edit ? 'Editar comida': 'Añadir nueva comida'}}</h1>
+    <!-- name -->
+    <div class="w-full gap-4">
+        <mat-form-field appearance="outline">
+            <mat-label for="name">Nombre de la comida</mat-label>
+            <input matInput placeholder="Ejem. Pizza" id="name" type="text" formControlName="name">
+            @if(name?.invalid && (name?.dirty || name?.touched)){
+                <mat-error>
+                    @if(name?.hasError('required')){
+                        <span class="text-xs">Este campo es requerido</span>
+                    }
+                </mat-error>
+            }
+        </mat-form-field>
     </div>
+
+    <!-- description -->
+    <div class="w-full gap-4">
+        <mat-form-field appearance="outline">
+            <mat-label for="description">Description</mat-label>
+            <input matInput placeholder="Ejem. Pizza" id="category" type="text" formControlName="description">
+            @if(description?.invalid && (description?.dirty || description?.touched)){
+                <mat-error>
+                    @if(description?.hasError('required')){
+                        <span class="text-xs">Este campo es requerido</span>
+                    }
+                    @if(description?.hasError('minlenght')){
+                        <span class="text-xs">Minimo de caracteres requeridps es {{description?.getError('minlenght').requiredLength}}, tienes {{description?.getError('minlenght').actualLenght}}</span>
+                    }
+                </mat-error>
+            }
+        </mat-form-field>
+    </div>
+
+    <!-- image -->
+    <div class="w-full gap-4">
+        <mat-form-field appearance="outline">
+            <mat-label for="image">Imagen</mat-label>
+            <input matInput placeholder="URL de imagen" id="image" type="text" formControlName="image">
+            @if(image?.invalid && (image?.dirty || image?.touched)){
+                <mat-error>
+                    @if(image?.hasError('required')){
+                        <span class="text-xs">Este campo es requerido</span>
+                    }
+                </mat-error>
+            }
+        </mat-form-field>
+    </div>
+
+    <!-- category -->
+    <div class="w-full gap-4">
+        <mat-form-field appearance="outline">
+            <select matNativeControl required>
+                <option value="drink">Drink</option>
+                <option value="foodS">Food</option>
+            </select>
+            @if(category?.invalid && (category?.dirty || category?.touched)){
+                <mat-error>
+                    @if(category?.hasError('required')){
+                        <span class="text-xs">Este campo es requerido</span>
+                    }
+                </mat-error>
+            }
+        </mat-form-field>
+    </div>
+
+    <!-- price -->
+    <div class="w-full gap-4">
+        <mat-form-field appearance="outline">
+            <mat-label for="price">Precio</mat-label>
+            <input matInput placeholder="Ejem. 10.00" id="price" type="text" formControlName="price">
+            @if(price?.invalid && (price?.dirty || price?.touched)){
+                <mat-error>
+                    @if(price?.hasError('required')){
+                        <span class="text-xs">Este campo es requerido</span>
+                    }
+                    @if(price?.hasError('min')){
+                        <span class="text-xs">Minimo de caracteres requeridps es {{price?.getError('min').min}}, tienes {{price?.getError('minlenght').actual}}</span>
+                    }
+                </mat-error>
+            }
+        </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="edit ? updateData() : sendData()" >{{edit? 'actualizar' : 'Enviar'}}</button>
+</form>
+
+<div class="w-full lg:w-1/2">
+    <img class="aspect-video object-cover bg-no-repeat rounded-lg" src="{{image?.value}}">
+</div>
 </div>
