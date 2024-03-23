@@ -38,4 +38,28 @@ export class FoodService {
   public getAllFoods():Food[]{
     return this.menu;
   }
+
+  public getOne(id:number):Food | undefined {
+    return this.menu.find(item => item.id == id)
+  }
+
+  public addFood(food:Food){
+    this.menu.push(food);
+  }
+
+  public updateFood(newFood:Food){
+    this.menu.forEach((food,index)=>{
+      if(food.id == newFood.id){
+        this.menu[index] = newFood;
+      }
+    })
+  }
+  
+  public deleteFood(deleteFood:Food){
+    this.menu.forEach((food, index)=>{
+      if(food.id == deleteFood.id) {
+        this.menu.splice(index, 1)
+      }
+    })
+  }
 }
